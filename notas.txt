@@ -1,0 +1,3 @@
+Crear nuevo agente (agente2) y registrar en el runtime
+Cuando MYAGENT recibe un mensaje, reenvía el mensaje a agente2 y añade el mensaje "Hola, soy myagent"
+agente2 imprime el mensaje recibido
