@@ -95,32 +95,32 @@ class Simulador(RoutedAgent):
         temperatura = self.temperatura_maxima * math.exp(-0.5 * distancia)
         return round(temperatura, 2)
 
-    def set_fuente_calor(self, x: float, y: float) -> None:
-        """
-        Establece la posición de la fuente de calor
-        """
-        self.fuente_calor_x = x
-        self.fuente_calor_y = y
-
     @message_handler
-    async def handle_my_message_type(self, message: MyMessageType, ctx: MessageContext) -> None:
-        print(f"Iniciando simulacion")
-        # Obtener la temperatura en la posición actual del robot
-        pos_actual = self.obtener_posicion_robot()
-        temp = self.calcular_temperatura(pos_actual['x'], pos_actual['y'])
-        
-        # Enviar la temperatura al robot y obtener su respuesta
-        respuesta = await self.send_message(MyMessageType(str(temp)), AgentId("Robot", "default"))
-        parsed = self.parsear_respuesta_robot(respuesta.content)
-        
-        # Actualizar la posición del robot según su movimiento
-        self.mover_robot(parsed['movx'], parsed['movy'])
-        
-        # Imprimir información del movimiento
-        print(f"Razonamiento: {parsed['razonamiento']}")
-        print(f"Movimiento: ({parsed['movx']}, {parsed['movy']})")
-        print(f"Nueva posición: ({self.robot_x}, {self.robot_y})")
-        print(f"Temperatura actual: {temp}°C")
+    async def handle_my_message_type(self, message: MyMessageType, ctx: MessageContext) -> MyMessageType:
+        if message.content == "Iniciar":
+            # Primera iteración, solo enviar temperatura inicial
+            pos_actual = self.obtener_posicion_robot()
+            temp = self.calcular_temperatura(pos_actual['x'], pos_actual['y'])
+            print(f"\nPosición actual del robot: ({self.robot_x}, {self.robot_y})")
+            print(f"Temperatura actual: {temp}°C")
+            return MyMessageType(str(temp))
+        else:
+            # Procesar la respuesta del robot y calcular nueva temperatura
+            parsed = self.parsear_respuesta_robot(message.content)
+            self.mover_robot(parsed['movx'], parsed['movy'])
+            print(f"Razonamiento del robot: {parsed['razonamiento']}")
+            print(f"Movimiento realizado: ({parsed['movx']}, {parsed['movy']})")
+            
+            # Verificar si llegó a la fuente de calor
+            if abs(self.robot_x - self.fuente_calor_x) < 0.5 and abs(self.robot_y - self.fuente_calor_y) < 0.5:
+                print("\n¡El robot ha encontrado la fuente de calor!")
+                return MyMessageType("FIN")
+            
+            # Calcular y enviar nueva temperatura
+            temp = self.calcular_temperatura(self.robot_x, self.robot_y)
+            print(f"Nueva posición: ({self.robot_x}, {self.robot_y})")
+            print(f"Nueva temperatura: {temp}°C")
+            return MyMessageType(str(temp))
 
 class Robot(RoutedAgent):
     def __init__(self) -> None:
@@ -129,19 +129,35 @@ class Robot(RoutedAgent):
         self.chat_history: List[LLMMessage]=[self.system_message]
 
     @message_handler
-    async def handle_my_message_type(self, message: MyMessageType, ctx: MessageContext) -> None:
-        user_message = UserMessage(
-            content=message.content,
-            source="user"
-        )
-        self.chat_history.append(user_message)
-        response = await model_client.create(self.chat_history)
-        assistant_message = AssistantMessage(
-            content=response.content,
-            source="assistant"
-        )
-        self.chat_history.append(assistant_message)
-        return MyMessageType(response.content)
+    async def handle_my_message_type(self, message: MyMessageType, ctx: MessageContext) -> MyMessageType:
+        if message.content == "FIN":
+            return MyMessageType("FIN")
+        
+        try:
+            # Procesar la temperatura recibida
+            temperatura = float(message.content)
+            
+            # Enviar la temperatura al modelo
+            user_message = UserMessage(
+                content=f"La temperatura actual es {temperatura}°C",
+                source="user"
+            )
+            self.chat_history.append(user_message)
+            
+            # Obtener decisión del modelo
+            response = await model_client.create(self.chat_history)
+            assistant_message = AssistantMessage(
+                content=response.content,
+                source="assistant"
+            )
+            self.chat_history.append(assistant_message)
+            
+            # Retornar la decisión de movimiento
+            return MyMessageType(response.content)
+            
+        except ValueError:
+            print(f"Error: temperatura inválida recibida: {message.content}")
+            return MyMessageType("FIN")
 
 runtime = SingleThreadedAgentRuntime()
 
@@ -150,7 +166,34 @@ async def main():
     await Simulador.register(runtime, "Simulador", lambda: Simulador())
     runtime.start()  # Start processing messages in the background.
 
-    await runtime.send_message(MyMessageType("Iniciar"), AgentId("Simulador", "default"))
+    print("\nIniciando simulación de búsqueda de fuente de calor...")
+    print(f"Fuente de calor ubicada en (8, 10)")
+    print("El robot comenzará en (0,0)")
+    
+    # Iniciar el ciclo de simulación
+    mensaje_actual = MyMessageType("Iniciar")
+    max_iteraciones = 20  # Límite de iteraciones para evitar bucles infinitos
+    iteracion = 0
+    
+    while iteracion < max_iteraciones:
+        iteracion += 1
+        print(f"\n=== Iteración {iteracion} ===")
+        
+        # El simulador procesa el movimiento (si hay) y envía la temperatura
+        respuesta_sim = await runtime.send_message(mensaje_actual, AgentId("Simulador", "default"))
+        if respuesta_sim.content == "FIN":
+            break
+            
+        # El robot recibe la temperatura y decide el movimiento
+        respuesta_robot = await runtime.send_message(respuesta_sim, AgentId("Robot", "default"))
+        if respuesta_robot.content == "FIN":
+            break
+            
+        mensaje_actual = respuesta_robot
+        await asyncio.sleep(2)  # Pausa entre iteraciones
+    
+    if iteracion >= max_iteraciones:
+        print("\n¡Límite de iteraciones alcanzado! El robot no encontró la fuente de calor.")
     
     await runtime.stop()  # Stop processing messages in the background.
 
