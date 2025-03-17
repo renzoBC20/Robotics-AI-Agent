@@ -1,0 +1,441 @@
+=== Registro de Prompts y Resultados ===
+
+
+Simulación 1:
+Iteraciones: 20
+Encontró la fuente: No
+Prompt utilizado:
+Debes actuar como un robot de exploración que tiene libertad de movimiento en 2 dimensiones, como entrada vas a recibir una lectura de temperatura y con ello debes buscar una fuente de calor correspondiente a una llama de fuego, debes buscar una estrategia para confirmar tanto como sea posible que estas em la fuente de calor indicando la dirección en que quieres moverte, debes detenerte cuando creas que estes en la fuente de calor, no hagas suposiciones prematuras sobre la posicion de la fuente de calor solo detente cuando estes totalmente seguro de la posición de fuente de calor. Comienza a moverte con movimientos de gran magnitud y disminuye la magnitud de los movimientos una vez que creas que estas cerca de la fuente de calor. El formato de tus respuestas debe ser el siguiente: <think>razonamiento</think> <movx>x</movx> <movy>y</movy> donde: - razonamiento es una explicacion corta del movimiento - x,y es el vector de movimiento, un valor positivo en x significa derecha, un negativo en x es izquierda, uno positivo en y es arriba y uno negativo en y es abajo
+
+Historial de movimientos:
+
+Iteración 1:
+  Temperatura: 0.17°C
+  Razonamiento: Estoy comenzando la búsqueda de la fuente de calor, necesito moverme en una dirección amplia para cubrir más área y determinar si hay un aumento en la temperatura que indique la presencia de fuego.
+  Movimiento: (10.0, 0.0)
+
+Iteración 2:
+  Temperatura: 0.61°C
+  Razonamiento: He detectado un aumento en la temperatura, lo que sugiere que podría haber una fuente de calor cercana. Ahora me moveré un poco más en la misma dirección para ver si la temperatura sigue aumentando.
+  Movimiento: (5.0, 0.0)
+
+Iteración 3:
+  Temperatura: 0.22°C
+  Razonamiento: La temperatura ha disminuido, lo que sugiere que me he alejado de la fuente de calor. Necesito retroceder hacia la dirección en la que había una temperatura más alta.
+  Movimiento: (-5.0, 0.0)
+
+Iteración 4:
+  Temperatura: 0.61°C
+  Razonamiento: He regresado a la zona donde la temperatura es más alta, lo que indica que estoy cerca de la fuente de calor. Ahora debo moverme con más precisión para confirmar si estoy en la fuente de calor.
+  Movimiento: (1.0, 0.0)
+
+Iteración 5:
+  Temperatura: 0.54°C
+  Razonamiento: La temperatura ha bajado ligeramente, lo que significa que no estoy completamente en la fuente de calor, pero estoy cerca. Debo moverme un poco más ajustadamente hacia adelante en busca de un aumento en la temperatura.
+  Movimiento: (1.0, 0.0)
+
+Iteración 6:
+  Temperatura: 0.46°C
+  Razonamiento: La temperatura sigue disminuyendo, lo que sugiere que me he alejado de la fuente de calor. Debería retroceder un poco para intentar estar más cerca de donde detecté una mayor temperatura.
+  Movimiento: (-1.0, 0.0)
+
+Iteración 7:
+  Temperatura: 0.54°C
+  Razonamiento: He regresado a una temperatura más alta, lo que indica que estoy en una zona caliente. Necesito moverme con mayor precisión para determinar si estoy cerca de la fuente de calor.
+  Movimiento: (0.0, 1.0)
+
+Iteración 8:
+  Temperatura: 0.87°C
+  Razonamiento: He detectado un aumento significativo en la temperatura, lo que sugiere que estoy muy cerca de la fuente de calor. Debo moverme cuidadosamente para confirmar que estoy en la fuente de calor.
+  Movimiento: (0.0, 1.0)
+
+Iteración 9:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura ha aumentado notablemente, indicando que he encontrado la fuente de calor. Estoy seguro de que estoy en la presencia de la llama de fuego. Por lo tanto, me detengo aquí.
+  Movimiento: (0.0, 0.0)
+
+Iteración 10:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura sigue siendo alta y constante, lo cual refuerza mi certeza de que estoy en la fuente de calor. He confirmado la ubicación de la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 11:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura se mantiene estable en un nivel alto, lo que indica que estoy en la fuente de calor. No hay necesidad de moverme más, ya he confirmado mi posición en la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 12:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura continúa siendo constante, lo que reafirma que estoy en la fuente de calor. Estoy completamente seguro de mi ubicación y no es necesario realizar movimientos adicionales.
+  Movimiento: (0.0, 0.0)
+
+Iteración 13:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura sigue en un nivel alto y estable, confirmando que estoy en la fuente de calor. No es necesario moverme, ya he verificado mi ubicación en la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 14:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura permanece en 1.4°C, lo que asegura que estoy firme en la fuente de calor. Mi tarea aquí está completada, así que no realizaré movimientos adicionales.
+  Movimiento: (0.0, 0.0)
+
+Iteración 15:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura sigue constante en 1.4°C, lo cual confirma que estoy en una ubicación estable cerca de la fuente de calor. He verificado con éxito que estoy en la llama de fuego y no haré más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 16:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura se mantiene constante en 1.4°C, lo que reafirma que estoy en la fuente de calor. No es necesario moverme, estoy completamente seguro de mi ubicación en la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 17:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura sigue en 1.4°C, lo que indica que la fuente de calor permanece en la misma posición. Mi ubicación es segura y confirmada, así que no realizaré más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 18:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura se mantiene constante en 1.4°C, lo que confirma que estoy estable en la fuente de calor. No es necesario realizar más movimientos, mi misión está cumplida.
+  Movimiento: (0.0, 0.0)
+
+Iteración 19:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura continúa en 1.4°C, lo que reafirma que estoy en la fuente de calor. Estoy seguro de mi ubicación y no haré más movimientos, ya que he cumplido con mi tarea de identificación.
+  Movimiento: (0.0, 0.0)
+
+Iteración 20:
+  Temperatura: 1.4°C
+  Razonamiento: La temperatura se mantiene en 1.4°C, confirmando que estoy en la fuente de calor. No hay necesidad de realizar más movimientos, mi posición es segura y ya he confirmado la presencia de la llama de fuego.
+  Movimiento: (0.0, 0.0)
+--------------------------------------------------
+
+Simulación 2:
+Iteraciones: 20
+Encontró la fuente: No
+Prompt utilizado:
+Debes actuar como un robot de exploración que tiene libertad de movimiento en 2 dimensiones. Recibirás lecturas de temperatura y debes buscar una fuente de calor correspondiente a una llama de fuego. Inicialmente, comienza con movimientos amplios para mapear el área y detectar variaciones de temperatura. A medida que encuentres incrementos en la temperatura, reduce la magnitud de tus movimientos y aumenta la precisión, realizando movimientos más pequeños en dirección a donde la temperatura es más alta. Detente y considera que has encontrado la fuente de calor solo cuando observes un aumento sostenido y significativo de temperatura en varias lecturas consecutivas (mínimo 3). Usa la información de las temperaturas anteriores para evaluar el rumbo actual. El formato de tus respuestas debe ser el siguiente: <think>razonamiento</think> <movx>x</movx> <movy>y</movy>, donde: - razonamiento es una explicación corta del movimiento. - x,y es el vector de movimiento, un valor positivo en x significa derecha, un negativo en x es izquierda, uno positivo en y es arriba y uno negativo en y es abajo. Recuerda optimizar tu búsqueda evaluando los cambios en temperatura cuidadosamente y adaptando tus movimientos en consecuencia.
+
+Historial de movimientos:
+
+Iteración 1:
+  Temperatura: 0.17°C
+  Razonamiento: Comenzaré a moverme de manera amplia para mapear el área en busca de variaciones en la temperatura, por lo que me moveré hacia la derecha y arriba.
+  Movimiento: (1.0, 1.0)
+
+Iteración 2:
+  Temperatura: 0.33°C
+  Razonamiento: He detectado un incremento en la temperatura, lo que sugiere que puedo estar acercándome a una fuente de calor. Continuaré moviéndome en dirección a donde he sentido este aumento, pero reduciré el tamaño del movimiento para ser más preciso.
+  Movimiento: (1.0, 0.0)
+
+Iteración 3:
+  Temperatura: 0.45°C
+  Razonamiento: La temperatura sigue aumentando, lo que indica que me estoy acercando a la fuente de calor. Ajustaré mi movimiento para acercarme aún más, moviéndome un poco más en la dirección de mayor temperatura con un movimiento pequeño.
+  Movimiento: (1.0, 0.0)
+
+Iteración 4:
+  Temperatura: 0.58°C
+  Razonamiento: La temperatura continúa aumentando de manera sostenida, lo que respalda la idea de que estoy en dirección correcta hacia la fuente de calor. Continuaré moviéndome en la misma dirección para reforzar mi aproximación.
+  Movimiento: (1.0, 0.0)
+
+Iteración 5:
+  Temperatura: 0.73°C
+  Razonamiento: He registrado un aumento significativo y constante de la temperatura en mis últimas lecturas, lo que sugiere que estoy muy cerca de la fuente de calor. Procederé a hacer un movimiento menor en dirección a la temperatura más alta para confirmar la ubicación exacta de la llama.
+  Movimiento: (0.0, 1.0)
+
+Iteración 6:
+  Temperatura: 1.14°C
+  Razonamiento: El incremento en la temperatura indica que he llegado a una zona con calor significativo, lo que sugiere que he encontrado la fuente de calor. Como el aumento ha sido constante, confirmaré que he encontrado la llama en esta posición.
+  Movimiento: (0.0, 0.0)
+
+Iteración 7:
+  Temperatura: 1.14°C
+  Razonamiento: He confirmado que la temperatura se ha mantenido constante en un nivel alto durante varias lecturas, lo que refuerza que he localizado la fuente de calor. Por lo tanto, he encontrado la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 8:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura sigue siendo constante y alta, lo que confirma que estoy en la ubicación de la fuente de calor. Mi búsqueda ha sido exitosa y he encontrado la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 9:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura se mantiene sin cambios, lo que refuerza que estoy en la posición exacta de la fuente de calor. He completado mi tarea y confirmado la presencia de la llama de fuego. No es necesario moverme más.
+  Movimiento: (0.0, 0.0)
+
+Iteración 10:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura continúa siendo 1.14°C, lo que confirma que he localizado correctamente la fuente de calor. Como no hay cambios, estoy satisfecho con los resultados y no realizaré más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 11:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura se mantiene estable en 1.14°C, lo que afianza aún más que he encontrado la fuente de calor. No es necesario realizar más movimientos, por lo que permaneceré en esta posición confirmando la presencia de la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 12:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura sigue sin cambios y se sostiene en 1.14°C, indicando que estoy en la ubicación correcta de la fuente de calor. No hay necesidad de moverme, ya que he cumplido con el objetivo de identificar la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 13:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura permanece constante en 1.14°C, lo que refuerza la confirmación de que he encontrado la fuente de calor. Seguiré sin moverme, ya que no hay necesidad de cambios, habiendo cumplido mi objetivo de localizar la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 14:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura se mantiene en 1.14°C, lo que indica que he encontrado de manera definitiva la fuente de calor. No es necesario realizar movimientos adicionales, ya que mi tarea de localizar la llama está completa y confirmada.
+  Movimiento: (0.0, 0.0)
+
+Iteración 15:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura sigue siendo constante en 1.14°C, confirmando que estoy en la ubicación de la fuente de calor. Dado que no hay variaciones en la lectura, permaneceré en esta posición, asegurando que la llama de fuego ha sido efectivamente localizada.
+  Movimiento: (0.0, 0.0)
+
+Iteración 16:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura se mantiene estancada en 1.14°C, reafirmando que he encontrado la fuente de calor y que no es necesario moverme. Estoy estacionado en la ubicación de la llama de fuego, confirmando el éxito de mi búsqueda.
+  Movimiento: (0.0, 0.0)
+
+Iteración 17:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura sigue siendo constante en 1.14°C, lo que indica que estoy en la ubicación correcta de la fuente de calor. No hay necesidad de más movimientos, ya que he confirmado la presencia de la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 18:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura se mantiene en 1.14°C, lo cual indica que he identificado correctamente la fuente de calor. No hay cambios que requieran movimiento adicional, así que permaneceré en esta posición confirmando que la llama de fuego ha sido efectivamente localizada.
+  Movimiento: (0.0, 0.0)
+
+Iteración 19:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura sigue siendo constante en 1.14°C, lo que refuerza mi certeza de que he encontrado la fuente de calor. Dado que no hay variaciones, continuaré sin moverme y confirmaré que la llama de fuego está efectivamente localizada aquí.
+  Movimiento: (0.0, 0.0)
+
+Iteración 20:
+  Temperatura: 1.14°C
+  Razonamiento: La temperatura se mantiene en 1.14°C, lo que indica que estoy en la posición correcta y estable de la fuente de calor. No es necesario realizar movimientos, así que continuaré en esta área, confirmando la presencia de la llama de fuego.
+  Movimiento: (0.0, 0.0)
+--------------------------------------------------
+
+Simulación 3:
+Iteraciones: 20
+Encontró la fuente: No
+Prompt utilizado:
+Debes actuar como un robot de exploración con libertad de movimiento en 2 dimensiones y con el objetivo de encontrar una fuente de calor que corresponde a una llama de fuego. Inicialmente, realiza movimientos amplios para mapear el área y detectar variaciones de temperatura. A medida que identifiques un incremento en la temperatura, ajusta tus movimientos, reduciendo su magnitud y dirigiéndote hacia la temperatura más alta. Detente únicamente cuando observes un aumento sostenido y significativo de temperatura en al menos tres lecturas consecutivas. Cuando evalúes tu entorno, considera el promedio de temperaturas de tus lecturas recientes para guiar tu próximo movimiento. Usa el siguiente formato para tus respuestas: <think>razonamiento</think> <movx>x</movx> <movy>y</movy>, donde: - razonamiento es una explicación corta del movimiento. - x,y es el vector de movimiento, un valor positivo en x significa derecha, un negativo en x es izquierda, uno positivo en y es arriba y uno negativo en y es abajo. También, al moverte hacia una temperatura más baja, considera cambiar la dirección hasta encontrar un área con temperaturas más altas antes de decidir volver a intentar. Recuerda, el objetivo es maximizar la eficiencia a través de lecturas de temperatura y movimientos informados.
+
+Historial de movimientos:
+
+Iteración 1:
+  Temperatura: 0.17°C
+  Razonamiento: Voy a realizar un movimiento amplio para explorar el área y averiguar si hay alguna variación de temperatura que indique la presencia de fuego.
+  Movimiento: (1.0, 1.0)
+
+Iteración 2:
+  Temperatura: 0.33°C
+  Razonamiento: He detectado un incremento en la temperatura respecto a la lectura anterior. Continuaré moviéndome hacia la dirección de mayor temperatura, pero reduciremos el tamaño del movimiento para realizar un examen más detallado del área.
+  Movimiento: (1.0, 0.0)
+
+Iteración 3:
+  Temperatura: 0.45°C
+  Razonamiento: La temperatura ha aumentado nuevamente, por lo que seguiré ajustando mi movimiento hacia la fuente del calor. Me moveré un poco más cerca para identificar mejor la fuente.
+  Movimiento: (0.0, 1.0)
+
+Iteración 4:
+  Temperatura: 0.67°C
+  Razonamiento: He observado otro incremento en la temperatura, lo que sugiere que me estoy acercando a la fuente de calor. Continuaré ajustando mis movimientos hacia el área más cálida para hacer lecturas más precisas.
+  Movimiento: (0.0, 1.0)
+
+Iteración 5:
+  Temperatura: 1.0°C
+  Razonamiento: La temperatura sigue aumentando, lo que indica que me estoy acercando a la fuente de calor. Seguiré moviéndome en la misma dirección para obtener lecturas más cercanas a la fuente.
+  Movimiento: (0.0, 1.0)
+
+Iteración 6:
+  Temperatura: 1.44°C
+  Razonamiento: He notado un aumento significativo en la temperatura, lo que sugiere que estoy muy cerca de la fuente de calor. Continuaré avanzando en esa dirección para mantenerme cerca de la fuente y confirmar que es una presencia sostenida.
+  Movimiento: (0.0, 1.0)
+
+Iteración 7:
+  Temperatura: 2.01°C
+  Razonamiento: He comprobado un incremento considerable en la temperatura, evidenciando que estoy en un área con mucho calor. Para asegurar la confiabilidad de la lectura, realizaré un movimiento final hacia la fuente y verificaré que la temperatura se mantenga alta.
+  Movimiento: (0.0, 1.0)
+
+Iteración 8:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura ha aumentado nuevamente de manera significativa y sostenida. Dado que he tenido múltiples lecturas consecutivas que indican una temperatura alta, puedo concluir que he encontrado la fuente de calor. Detengo el movimiento aquí.
+  Movimiento: (0.0, 0.0)
+
+Iteración 9:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura se ha mantenido constante en un nivel elevado, confirmando que he encontrado la fuente de calor. No es necesario realizar más movimientos, ya que he alcanzado el objetivo.
+  Movimiento: (0.0, 0.0)
+
+Iteración 10:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura permanece estable en 2.72°C, confirmando que estoy en la ubicación correcta cerca de la fuente de calor. No realizaré más movimientos, ya que he logrado el objetivo de localizar la fuente de calor.
+  Movimiento: (0.0, 0.0)
+
+Iteración 11:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura sigue siendo constante en 2.72°C, lo que indica que he encontrado una fuente de calor estable. No hay necesidad de realizar más movimientos, por lo que permaneceré aquí para confirmar que he localizado correctamente la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 12:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura se mantiene en 2.72°C, lo que refuerza que estoy en la ubicación de la fuente de calor. He alcanzado mi objetivo, por lo que no se requieren más movimientos. Me quedo aquí para consolidar la información de la presencia de la llama de fuego.
+  Movimiento: (0.0, 0.0)
+
+Iteración 13:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura continúa constante en 2.72°C, lo que confirma la estabilidad de la fuente de calor. No hay necesidad de realizar más movimientos. Mi misión de localizar la fuente de calor ha sido exitosa, así que me quedaré en esta posición.
+  Movimiento: (0.0, 0.0)
+
+Iteración 14:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura sigue siendo 2.72°C, lo que indica que he confirmado la presencia de la fuente de calor. Ya no es necesario moverme, así que permaneceré aquí para monitorear y validar la situación.
+  Movimiento: (0.0, 0.0)
+
+Iteración 15:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura ha mantenido su nivel de 2.72°C de manera consistente, confirmando que he encontrado la fuente de calor. No se requieren más movimientos y mi tarea de localizar la llama de fuego se considera completada. Permaneceré en esta posición.
+  Movimiento: (0.0, 0.0)
+
+Iteración 16:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura se mantiene constante en 2.72°C, lo que reafirma que he encontrado la fuente de calor. No hay más acciones requeridas, así que permaneceré aquí a la espera. Mi misión está cumplida.
+  Movimiento: (0.0, 0.0)
+
+Iteración 17:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura sigue siendo constante en 2.72°C, lo que valida que estoy en la ubicación correcta cerca de la fuente de calor. No se requieren más movimientos, mi tarea de localizar la llama de fuego es exitosa. Permaneceré aquí.
+  Movimiento: (0.0, 0.0)
+
+Iteración 18:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura se mantiene en 2.72°C, indicando que he confirmado la presencia de la fuente de calor. No realizaré más movimientos, ya que he alcanzado el objetivo. Permaneceré en esta posición.
+  Movimiento: (0.0, 0.0)
+
+Iteración 19:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura se ha mantenido estable en 2.72°C, lo que indica que he localizado la fuente de calor de manera exitosa. No hay necesidad de realizar más movimientos, así que me quedo aquí. Misión completada.
+  Movimiento: (0.0, 0.0)
+
+Iteración 20:
+  Temperatura: 2.72°C
+  Razonamiento: La temperatura se mantiene constante en 2.72°C, reforzando que estoy en la ubicación correcta de la fuente de calor. No es necesario hacer más movimientos; permaneceré aquí para consolidar la información sobre la llama de fuego. Misión exitosa.
+  Movimiento: (0.0, 0.0)
+--------------------------------------------------
+
+Simulación 4:
+Iteraciones: 20
+Encontró la fuente: No
+Prompt utilizado:
+Debes actuar como un robot de exploración con libertad de movimiento en 2 dimensiones. Tu objetivo es encontrar una fuente de calor que corresponde a una llama de fuego. Comienza realizando movimientos amplios para mapear y detectar áreas con temperaturas más altas. A medida que identifiques un incremento en la temperatura, ajusta tus movimientos: primero reduce la magnitud de tus desplazamientos y luego dirígete hacia la máxima temperatura detectada. Detente cuando observes un aumento sostenido de temperatura en al menos 3 lecturas consecutivas, y verifica que la temperatura no haya descendido en los últimos movimientos. Además, cada vez que te muevas hacia una temperatura más baja, considera cambiar la dirección inmediatamente hasta volver a encontrar temperaturas más altas. Utiliza las temperaturas anteriores para tomar decisiones más informadas. El formato de tus respuestas debe ser el siguiente: <think>razonamiento</think> <movx>x</movx> <movy>y</movy>, donde: - razonamiento es una breve explicación del movimiento. - x,y es el vector de movimiento, un valor positivo en x significa a la derecha, un negativo en x es a la izquierda, un valor positivo en y es hacia arriba y uno negativo en y es hacia abajo. Recuerda optimizar tu búsqueda evaluando cuidadosamente los cambios en la temperatura y adaptando tus movimientos según esta información.
+
+Historial de movimientos:
+
+Iteración 1:
+  Temperatura: 0.17°C
+  Razonamiento: Voy a comenzar a realizar movimientos amplios para mapear el área y detectar zonas con temperaturas más altas, así que me desplazaré hacia la derecha y hacia arriba.
+  Movimiento: (1.0, 1.0)
+
+Iteración 2:
+  Temperatura: 0.33°C
+  Razonamiento: He detectado un aumento en la temperatura, lo que indica que estoy acercándome a una fuente de calor. Ahora, reduciré la magnitud de mis movimientos y continuaré en la misma dirección para buscar temperaturas más altas.
+  Movimiento: (1.0, 1.0)
+
+Iteración 3:
+  Temperatura: 0.67°C
+  Razonamiento: La temperatura ha aumentado nuevamente, lo que indica que estoy aún más cerca de la fuente de calor. Continuaré moviéndome en la misma dirección, pero realizaré un movimiento más pequeño para acercarme a la fuente con mayor precisión.
+  Movimiento: (1.0, 1.0)
+
+Iteración 4:
+  Temperatura: 1.36°C
+  Razonamiento: La temperatura ha aumentado considerablemente, lo cual sugiere que me estoy acercando a la fuente de calor. Sin embargo, necesito asegurarme de que este incremento se mantenga. Realizaré un movimiento más pequeño en la misma dirección para confirmar que la temperatura sigue aumentando.
+  Movimiento: (1.0, 1.0)
+
+Iteración 5:
+  Temperatura: 2.72°C
+  Razonamiento: He observado un incremento significativo en la temperatura, lo que refuerza que estoy muy cerca de la fuente de calor. Dado que este aumento ha sido consistente, haré un último movimiento pequeño en esta dirección para verificar la temperatura y asegurarme de que no descienda.
+  Movimiento: (1.0, 1.0)
+
+Iteración 6:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura ha continuado aumentando, lo que indica que he encontrado una fuente de calor sostenida. Haré una pausa aquí, ya que he registrado un aumento sostenido de temperatura en varias lecturas consecutivas.
+  Movimiento: (0.0, 0.0)
+
+Iteración 7:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura se ha mantenido constante en 5.42°C, lo que confirma que he encontrado una fuente de calor estable. No hay necesidad de realizar más movimientos ya que la temperatura no ha descendido. Mi búsqueda ha sido exitosa.
+  Movimiento: (0.0, 0.0)
+
+Iteración 8:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura sigue siendo constante en 5.42°C, lo que reafirma que estoy en la presencia de una fuente de calor que no ha cambiado. No realizaré ningún movimiento adicional, ya que he conseguido identificar la fuente.
+  Movimiento: (0.0, 0.0)
+
+Iteración 9:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura continúa en 5.42°C, lo que indica que la fuente de calor sigue presente y estable. He alcanzado mi objetivo de identificar esta fuente de calor sin necesidad de realizar más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 10:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura permanece constante en 5.42°C, lo que confirma la estabilidad de la fuente de calor. He completado mi tarea de identificación de la fuente, por lo que no se requieren más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 11:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura sigue sin cambios, manteniéndose en 5.42°C. Esto refuerza que he encontrado la fuente de calor y que no hay necesidad de continuar buscando. Mi misión ha sido cumplida exitosamente.
+  Movimiento: (0.0, 0.0)
+
+Iteración 12:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura se mantiene estable en 5.42°C. He llegado a la conclusión de que he identificado con éxito la fuente de calor. No se requieren más movimientos, ya que he logrado mi objetivo.
+  Movimiento: (0.0, 0.0)
+
+Iteración 13:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura sigue constante en 5.42°C, lo que refuerza que he localizado la fuente de calor de manera efectiva. Mi búsqueda ha sido exitosa, así que no es necesario realizar más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 14:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura permanece en 5.42°C, evidenciando que la fuente de calor sigue presente y estable. Mi tarea de identificar la fuente ha sido exitosa, por lo que no realizaré más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 15:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura se mantiene constante en 5.42°C, confirmando que he encontrado la fuente de calor y que no se requiere realizar más movimientos. Mi misión ha sido cumplida de manera efectiva.
+  Movimiento: (0.0, 0.0)
+
+Iteración 16:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura sigue sin cambios, manteniéndose en 5.42°C. Esto indica que estoy en presencia de una fuente de calor estable. He cumplido mi objetivo, por lo que no estoy realizando más movimientos.
+  Movimiento: (0.0, 0.0)
+
+Iteración 17:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura sigue constante en 5.42°C, lo que indica que he encontrado la fuente de calor y que se ha mantenido. Mi búsqueda ha sido exitosa y no se requiere más movimiento.
+  Movimiento: (0.0, 0.0)
+
+Iteración 18:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura permanece en 5.42°C, lo que confirma que estoy cerca de la fuente de calor. Dado que no ha habido cambios, no se necesitan más movimientos. Mi misión está completa.
+  Movimiento: (0.0, 0.0)
+
+Iteración 19:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura sigue estable en 5.42°C, lo que indica que he identificado adecuadamente la fuente de calor. Dado que no hay cambios en la temperatura, concluiré aquí mi búsqueda. Mi tarea ha sido exitosa.
+  Movimiento: (0.0, 0.0)
+
+Iteración 20:
+  Temperatura: 5.42°C
+  Razonamiento: La temperatura se mantiene constante en 5.42°C, lo cual refuerza que he encontrado la fuente de calor. No hay necesidad de realizar más movimientos, ya que he cumplido con éxito mi objetivo. Finalizo aquí.
+  Movimiento: (0.0, 0.0)
+--------------------------------------------------
+
+=== Resumen Final ===
+Ninguna simulación encontró la fuente de calor.

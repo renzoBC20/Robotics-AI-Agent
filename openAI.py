@@ -13,25 +13,11 @@ import re
 load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
 model_client = OpenAIChatCompletionClient(
-    model="gpt-4",
+    model="gpt-4o-mini",
     api_key=openai_api_key,
     # api_key="sk-...", # Optional if you have an API key set in the environment.
 )
-system_prompt="""
-Usted es un robot de exploración que se mueve en cuatro direcciones:
-arriba, abajo, derecha e izquierda, como entrada va a recibir una
-lectura de temperatura y con ello debes buscar la fuente de calor,
-indicando la dirección en que quieres moverte, debes detenerte cuando
-creas que estes en la fuente de calor.
-El formato de tus respuestas debe ser el siguiente:
-<think>razonamiento</think>
-<movx>x</movx>
-<movy>y</movy>
-donde:
-- razonamiento es una explicacion corta del movimiento
-- x,y es el vector de movimiento, un valor positivo en x significa derecha,
-un negativo en x es izquierda, uno positivo en y es arriba y uno negativo en y es abajo
-"""
+
 
 @dataclass
 class MyMessageType:
@@ -123,7 +109,7 @@ class Simulador(RoutedAgent):
             return MyMessageType(str(temp))
 
 class Robot(RoutedAgent):
-    def __init__(self) -> None:
+    def __init__(self,system_prompt) -> None:
         super().__init__("MyAgent")
         self.system_message = SystemMessage(content=system_prompt)
         self.chat_history: List[LLMMessage]=[self.system_message]
@@ -158,44 +144,192 @@ class Robot(RoutedAgent):
         except ValueError:
             print(f"Error: temperatura inválida recibida: {message.content}")
             return MyMessageType("FIN")
+        
 
-runtime = SingleThreadedAgentRuntime()
-
-async def main():
-    await Robot.register(runtime, "Robot", lambda: Robot())
+async def ejecutar_simulacion(prompt: str, max_iteraciones: int) -> tuple[int, bool, List[Dict]]:
+    runtime = SingleThreadedAgentRuntime()
+    await Robot.register(runtime, "Robot", lambda: Robot(prompt))
     await Simulador.register(runtime, "Simulador", lambda: Simulador())
-    runtime.start()  # Start processing messages in the background.
+    runtime.start()
 
     print("\nIniciando simulación de búsqueda de fuente de calor...")
     print(f"Fuente de calor ubicada en (8, 10)")
     print("El robot comenzará en (0,0)")
     
-    # Iniciar el ciclo de simulación
     mensaje_actual = MyMessageType("Iniciar")
-    max_iteraciones = 20  # Límite de iteraciones para evitar bucles infinitos
     iteracion = 0
+    encontro_fuente = False
+    historial_movimientos = []
     
-    while iteracion < max_iteraciones:
-        iteracion += 1
-        print(f"\n=== Iteración {iteracion} ===")
+    try:
+        while iteracion < max_iteraciones:
+            iteracion += 1
+            print(f"\n=== Iteración {iteracion} ===")
+            
+            # Obtener temperatura actual
+            respuesta_sim = await runtime.send_message(mensaje_actual, AgentId("Simulador", "default"))
+            if respuesta_sim.content == "FIN":
+                print("\n¡El robot ha encontrado la fuente de calor!")
+                encontro_fuente = True
+                break
+            
+            temperatura_actual = float(respuesta_sim.content)
+            
+            # Obtener movimiento del robot
+            respuesta_robot = await runtime.send_message(respuesta_sim, AgentId("Robot", "default"))
+            if respuesta_robot.content == "FIN":
+                break
+            
+            # Parsear respuesta del robot
+            try:
+                think_pattern = r'<think>(.*?)</think>'
+                movx_pattern = r'<movx>(.*?)</movx>'
+                movy_pattern = r'<movy>(.*?)</movy>'
+                
+                razonamiento = re.search(think_pattern, respuesta_robot.content)
+                movx = re.search(movx_pattern, respuesta_robot.content)
+                movy = re.search(movy_pattern, respuesta_robot.content)
+                
+                # Registrar movimiento
+                movimiento = {
+                    'iteracion': iteracion,
+                    'temperatura': temperatura_actual,
+                    'razonamiento': razonamiento.group(1) if razonamiento else 'No especificado',
+                    'movimiento_x': float(movx.group(1)) if movx else 0.0,
+                    'movimiento_y': float(movy.group(1)) if movy else 0.0
+                }
+                historial_movimientos.append(movimiento)
+            except Exception as e:
+                print(f"Error al parsear respuesta del robot: {e}")
+                
+            mensaje_actual = respuesta_robot
+            await asyncio.sleep(2)
         
-        # El simulador procesa el movimiento (si hay) y envía la temperatura
-        respuesta_sim = await runtime.send_message(mensaje_actual, AgentId("Simulador", "default"))
-        if respuesta_sim.content == "FIN":
-            break
-            
-        # El robot recibe la temperatura y decide el movimiento
-        respuesta_robot = await runtime.send_message(respuesta_sim, AgentId("Robot", "default"))
-        if respuesta_robot.content == "FIN":
-            break
-            
-        mensaje_actual = respuesta_robot
-        await asyncio.sleep(2)  # Pausa entre iteraciones
+        if iteracion >= max_iteraciones:
+            print("\n¡Límite de iteraciones alcanzado! El robot no encontró la fuente de calor.")
+        
+        return iteracion, encontro_fuente, historial_movimientos
     
-    if iteracion >= max_iteraciones:
-        print("\n¡Límite de iteraciones alcanzado! El robot no encontró la fuente de calor.")
+    finally:
+        await runtime.stop()
+
+async def optimizar_prompt_con_gpt(prompt_actual: str, historial: List[Dict], iteraciones: int, encontro_fuente: bool, historial_analisis: str) -> tuple[str, str]:
+    """
+    Utiliza GPT para optimizar el prompt basado en el rendimiento de la simulación.
+    """
+    optimization_client = OpenAIChatCompletionClient(
+        model="gpt-4o-mini",
+        api_key=openai_api_key,
+    )
+
+    # Crear mensaje de análisis para GPT
+    analisis = f"""
+Analiza el siguiente historial de movimientos de un robot buscador de calor y mejora el prompt.
+
+Información de la simulación:
+- Posición de la fuente de calor: (8, 10)
+- Iteraciones realizadas: {iteraciones}
+- Encontró la fuente: {'Sí' if encontro_fuente else 'No'}
+
+Historial de movimientos:
+"""
+    # Agregar cada movimiento al análisis
+    for mov in historial:
+        analisis += f"""
+Iteración {mov['iteracion']}:
+  Temperatura: {mov['temperatura']}°C
+  Razonamiento: {mov['razonamiento']}
+  Movimiento: ({mov['movimiento_x']}, {mov['movimiento_y']})
+"""
+
+    analisis += f"""
+Prompt actual:
+{prompt_actual}
+
+Por favor, genera un nuevo prompt mejorado que:
+1. Corrija patrones ineficientes observados en los movimientos
+2. Mejore la estrategia de búsqueda basada en los cambios de temperatura
+3. Optimice la velocidad de convergencia hacia la fuente
+4. Mantenga el mismo formato de respuesta (<think>, <movx>, <movy>)
+5. Incluya mejores heurísticas para determinar cuándo se ha encontrado la fuente
+6. Aproveche mejor la información de temperatura para tomar decisiones más informadas
+
+A continuación dispones del historial de intentos realizados hasta el momento y sus resulltados:
+{historial_analisis}
+Retorna SOLO el nuevo prompt, sin explicaciones adicionales.
+"""
+
+    messages = [
+        SystemMessage(content="Eres un experto en optimización de estrategias de búsqueda para robots."),
+        UserMessage(content=analisis, source="user")
+    ]
     
-    await runtime.stop()  # Stop processing messages in the background.
+    response = await optimization_client.create(messages)
+    return response.content, analisis
+
+async def main():
+    # Crear archivo de registro si no existe
+    with open('registro_prompts.txt', 'w', encoding='utf-8') as f:
+        f.write("=== Registro de Prompts y Resultados ===\n\n")
+    
+    max_simulaciones = int(input("Ingrese el número máximo de simulaciones: "))
+    prompt_actual = input("Ingrese el prompt inicial para el robot: ")
+    max_iteraciones = int(input("Ingrese la cantidad máxima de iteraciones: "))
+
+    mejor_prompt = None
+    mejor_rendimiento = float('inf')
+    historial_analisis = ""
+
+    for sim in range(max_simulaciones):
+        print(f"\n{'='*50}")
+        print(f"Simulación {sim + 1}/{max_simulaciones}")
+        print(f"{'='*50}")
+        
+        # Ejecutar simulación
+        iteraciones, encontro_fuente, historial = await ejecutar_simulacion(prompt_actual, max_iteraciones)
+        
+        # Registrar resultados
+        with open('registro_prompts.txt', 'a', encoding='utf-8') as f:
+            f.write(f"\nSimulación {sim + 1}:\n")
+            f.write(f"Iteraciones: {iteraciones}\n")
+            f.write(f"Encontró la fuente: {'Sí' if encontro_fuente else 'No'}\n")
+            f.write("Prompt utilizado:\n")
+            f.write(f"{prompt_actual}\n")
+            f.write("\nHistorial de movimientos:\n")
+            for mov in historial:
+                f.write(f"\nIteración {mov['iteracion']}:\n")
+                f.write(f"  Temperatura: {mov['temperatura']}°C\n")
+                f.write(f"  Razonamiento: {mov['razonamiento']}\n")
+                f.write(f"  Movimiento: ({mov['movimiento_x']}, {mov['movimiento_y']})\n")
+            f.write("-" * 50 + "\n")
+        
+        # Actualizar mejor prompt si es necesario
+        if encontro_fuente and iteraciones < mejor_rendimiento:
+            mejor_rendimiento = iteraciones
+            mejor_prompt = prompt_actual
+
+        # Preguntar si desea optimizar el prompt con GPT
+        if sim < max_simulaciones - 1:  # No preguntar en la última simulación
+            print("\nOptimizando prompt con GPT...")
+            prompt_actual, analisis = await optimizar_prompt_con_gpt(prompt_actual, historial, iteraciones, encontro_fuente, historial_analisis)
+            historial_analisis += analisis
+            print("\nNuevo prompt:")
+            print(prompt_actual)
+
+    
+    # Registrar resumen final
+    with open('registro_prompts.txt', 'a', encoding='utf-8') as f:
+        f.write("\n=== Resumen Final ===\n")
+        if mejor_prompt:
+            f.write(f"Mejor rendimiento: {mejor_rendimiento} iteraciones\n")
+            f.write("Mejor prompt:\n")
+            f.write(f"{mejor_prompt}\n")
+        else:
+            f.write("Ninguna simulación encontró la fuente de calor.\n")
+    
+    print("\n=== Resultados guardados en 'registro_prompts.txt' ===")
+    if mejor_prompt:
+        print(f"Mejor rendimiento: {mejor_rendimiento} iteraciones")
 
 if __name__ == "__main__":
     asyncio.run(main())
